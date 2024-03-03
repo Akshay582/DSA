@@ -129,3 +129,48 @@ LIMIT 1 OFFSET 2;
 -- -----------------------|
 --                    3500|
 
+# Solution
+USE 'temp';
+DROP function IF EXISTS 'getNthHighestSaleAmt';
+DELIMITER $$
+USE 'temp'$$
+# -------------------------------
+CREATE FUNCTION 'getNthHighestSaleAmt' (N INT) RETURNS int(11)
+BEGIN
+  SET N = N-1;
+  RETURN (
+        SELECT DISTINCT sale_amt FROM salemast
+        ORDER BY sale_amt DESC
+        LIMIT 1 OFFSET N
+    );
+END$$
+DELIMITER ;
+# To Execute the function:
+SELECT getNthHighestSaleAmt(3);
+
+-- Output:
+-- Couldn't test due to errors
+
+-- 4. From the following table, write a SQL query to find the marks, which appear at least thrice one after another without interruption. Return the number.
+-- Input:
+
+-- table: logs
+
+-- student_id|marks|
+-- ----------|-----|
+--        101|   83|
+--        102|   79|
+--        103|   83|
+--        104|   83|
+--        105|   83|
+--        106|   79|
+--        107|   79|
+--        108|   83|
+-- Output:
+
+-- ConsecutiveNums|
+-- ---------------|
+--              83|
+
+
+
